@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grandma's Voicemails</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="retro-header">
+            <h1>💌 Grandma's Voicemails 💌</h1>
+            <p class="subtitle">A collection of love, preserved</p>
+        </header>
+
+        <div class="voicemail-display">
+            <div class="screen-border">
+                <div class="screen-content">
+                    <div class="status-bar">
+                        <span class="signal">📶</span>
+                        <span class="time" id="currentTime"></span>
+                        <span class="battery">🔋</span>
+                    </div>
+                    
+                    <div class="message-area">
+                        <div class="message-icon">📞</div>
+                        <div class="message-text" id="messageText">
+                            Press the button below to hear a message...
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+
+                    <audio id="audioPlayer" preload="none"></audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="playButton" class="retro-button">
+                🎧 Play Voicemail
+            </button>
+            <div class="counter">
+                <span id="playedCount">0</span> / <span id="totalCount">30</span> messages heard
+            </div>
+        </div>
+
+        <div class="photo-gallery">
+            <div class="gallery-frame">
+                <img id="mainPhoto" src="" alt="Memory" class="photo">
+                <div class="photo-caption" id="photoCaption">
+                    Memories live on
+                </div>
+            </div>
+        </div>
+
+        <footer class="retro-footer">
+            <p>In loving memory • Forever in our hearts</p>
+            <p class="signature">Made with ❤️</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

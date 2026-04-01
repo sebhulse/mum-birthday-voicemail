@@ -29,7 +29,8 @@
                         </div>
                     </div>
 
-                    <div class="progress-container">
+                    <!-- Clickable Progress Bar -->
+                    <div class="progress-container" id="progressContainer">
                         <div class="progress-bar" id="progressBar"></div>
                     </div>
 
@@ -38,9 +39,16 @@
             </div>
         </div>
 
+        <!-- UPDATED: Navigation Controls -->
+        <div class="playback-controls">
+            <button id="prevRecordingBtn" class="control-btn" title="Previous Recording">⏮️</button>
+            <button id="playPauseBtn" class="control-btn main-control" title="Play/Pause">▶️</button>
+            <button id="nextRecordingBtn" class="control-btn" title="Next Recording">⏭️</button>
+        </div>
+
         <div class="controls">
-            <button id="playButton" class="retro-button">
-                🎧 Play Voicemail
+            <button id="newVoicemailBtn" class="retro-button">
+                🎧 Play New Voicemail
             </button>
             <div class="counter">
                 <span id="playedCount">0</span> / <span id="totalCount">30</span> messages heard

@@ -63,6 +63,50 @@ body {
     background: var(--lavender);
 }
 
+.playback-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--beige);
+    border-top: 4px solid var(--gray);
+    border-bottom: 4px solid var(--gray);
+}
+
+.control-btn {
+    background: var(--charcoal);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #1a2630;
+    transition: all 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #1a2630;
+}
+
+.control-btn.main-control {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    background: var(--teal);
+    box-shadow: 0 4px 0 #005a5a;
+}
+
+.control-btn.main-control:active {
+    box-shadow: 0 0 0 #005a5a;
+}
+
 .screen-border {
     background: var(--charcoal);
     padding: 3px;
@@ -177,6 +221,40 @@ body {
     color: var(--charcoal);
 }
 
+.progress-container {
+    margin-top: 15px;
+    height: 12px;
+    background: var(--gray);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer; /* Indicates clickable */
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--coral);
+    transition: width 0.1s linear;
+    position: relative;
+}
+
+/* Optional: Add a little dot at the end of the bar */
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: -2px;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 2px black;
+}
+
+
+
 /* Photo Gallery */
 .photo-gallery {
     padding: 20px;
@@ -234,5 +312,103 @@ body {
     .retro-button {
         padding: 12px 30px;
         font-size: 1rem;
+    }
+        .control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    .control-btn.main-control {
+        width: 50px;
+        height: 50px;
+    }
+}
+/* Playback Controls Section */
+.playback-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--beige);
+    border-top: 4px solid var(--gray);
+    border-bottom: 4px solid var(--gray);
+}
+
+.control-btn {
+    background: var(--charcoal);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #1a2630;
+    transition: all 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #1a2630;
+}
+
+.control-btn.main-control {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    background: var(--teal);
+    box-shadow: 0 4px 0 #005a5a;
+}
+
+.control-btn.main-control:active {
+    box-shadow: 0 0 0 #005a5a;
+}
+
+/* Progress Bar Styling */
+.progress-container {
+    margin-top: 15px;
+    height: 12px;
+    background: var(--gray);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--coral);
+    transition: width 0.1s linear;
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: -2px;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 2px black;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    .control-btn.main-control {
+        width: 50px;
+        height: 50px;
     }
 }

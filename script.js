@@ -1,32 +1,22 @@
 // Voicemail configuration
 const voicemails = [
-    'recordings/rec_1.m4a',
-    'recordings/rec_2.m4a',
-    'recordings/rec_3.m4a',
-    'recordings/rec_4.m4a',
-    'recordings/rec_5.m4a',
-    'recordings/rec_6.m4a',
-    'recordings/rec_7.m4a',
-    'recordings/rec_8.m4a',
-    'recordings/rec_9.m4a',
-    'recordings/rec_10.m4a',
-    'recordings/rec_11.m4a',
-    'recordings/rec_12.m4a',
-    'recordings/rec_13.m4a',
-    'recordings/rec_14.m4a',
-    'recordings/rec_15.m4a',
-    'recordings/rec_16.m4a',
-    'recordings/rec_17.m4a',
-    'recordings/rec_18.m4a',
-    'recordings/rec_19.m4a',
-    'recordings/rec_20.m4a',
-    'recordings/rec_21.m4a',
-    'recordings/rec_22.m4a',
-    'recordings/rec_23.m4a',
-    'recordings/rec_24.m4a',
-    'recordings/rec_25.m4a',
-    'recordings/rec_26.m4a',
+    'recordings/rec-1.m4a',
+    'recordings/rec-2.m4a',
+    'recordings/rec-3.m4a',
+    'recordings/rec-4.m4a',
+    'recordings/rec-5.m4a',
+    'recordings/rec-6.m4a',
+    'recordings/rec-7.m4a',
+    'recordings/rec-8.m4a',
+    'recordings/rec-9.m4a',
+    'recordings/rec-10.m4a',
+    'recordings/rec-11.m4a',
+    'recordings/rec-12.m4a',
+    'recordings/rec-13.m4a',
+    'recordings/rec-14.m4a',
+    'recordings/rec-15.m4a',
 ];
+
 
 const photos = [
     { src: 'photos/photo1.jpg', caption: 'Grandma in her garden' },
@@ -36,28 +26,26 @@ const photos = [
 ];
 
 // State management
-let playedIndices = [];      // Tracks all unique recordings heard
-let playbackQueue = [];      // Queue of recordings currently accessible
-let queuePosition = -1;      // Current position in the queue
+let playedIndices = [];
+let playbackQueue = [];
+let queuePosition = -1;
 let isPlaying = false;
 
 // DOM Elements
 const audioPlayer = document.getElementById('audioPlayer');
-const newVoicemailBtn = document.getElementById('newVoicemailBtn');
 const playPauseBtn = document.getElementById('playPauseBtn');
 const prevRecordingBtn = document.getElementById('prevRecordingBtn');
 const nextRecordingBtn = document.getElementById('nextRecordingBtn');
 const messageText = document.getElementById('messageText');
 const progressBar = document.getElementById('progressBar');
 const progressContainer = document.getElementById('progressContainer');
-const playedCount = document.getElementById('playedCount');
 const totalCount = document.getElementById('totalCount');
 const currentTimeDisplay = document.getElementById('currentTime');
 const mainPhoto = document.getElementById('mainPhoto');
 const photoCaption = document.getElementById('photoCaption');
+const keys = document.querySelectorAll('.key');
 
 // Initialize
-totalCount.textContent = voicemails.length;
 updateTime();
 setInterval(updateTime, 1000);
 
@@ -70,35 +58,25 @@ function updateTime() {
 // Get random unplayed index
 function getNextIndex() {
     if (playedIndices.length === voicemails.length) {
-        // All played, reset
         playedIndices = [];
-        messageText.textContent = 'Starting fresh! 🌟';
+        messageText.textContent = 'Starting fresh!';
     }
     
-    const availableIndices = voicemails
-        .map((_, i) => i)
-        .filter(i => !playedIndices.includes(i));
-    
-    return availableIndices[playedIndices.length];
+    return playedIndices.length;
 }
 
-// Start a new voicemail (random selection)
+// Start a new voicemail
 function startNewVoicemail() {
-    // Pause current if playing
     audioPlayer.pause();
     isPlaying = false;
     updatePlayPauseIcon();
 
     const newIndex = getNextIndex();
     
-    // Add to played list if not already there
     if (!playedIndices.includes(newIndex)) {
         playedIndices.push(newIndex);
-        playedCount.textContent = playedIndices.length;
     }
 
-    // Add to playback queue at current position + 1
-    // This allows us to go back to previous recordings we've heard
     queuePosition++;
     playbackQueue = playbackQueue.slice(0, queuePosition);
     playbackQueue.push(newIndex);
@@ -111,15 +89,13 @@ function loadAndPlayRecording(index) {
     if (index < 0 || index >= voicemails.length) return;
     
     audioPlayer.src = voicemails[index];
+    console.log("trying to play:", index)
+    console.log("trying to play:", voicemails[index])
     
-    // Update UI
-    messageText.textContent = `Message ${playedIndices.indexOf(index) + 1} of ${voicemails.length}`;
+    messageText.textContent = `Message ${index + 1} of ${voicemails.length}`;
     progressBar.style.width = '0%';
-    
-    // Update photo randomly
-    updatePhoto();
 
-    // Auto play
+
     audioPlayer.play().then(() => {
         isPlaying = true;
         updatePlayPauseIcon();
@@ -129,30 +105,34 @@ function loadAndPlayRecording(index) {
     });
 }
 
-// Navigate to next recording in queue
+// Navigate to next recording
 function nextRecording() {
-    if (playbackQueue.length === 0) return;
+    if (playbackQueue.length === 0) {
+        startNewVoicemail();
+        return;
+    }
     
     if (queuePosition < playbackQueue.length - 1) {
         queuePosition++;
         const nextIndex = playbackQueue[queuePosition];
         loadAndPlayRecording(nextIndex);
     } else {
-        // At end of queue, start a new random one
         startNewVoicemail();
     }
 }
 
-// Navigate to previous recording in queue
+// Navigate to previous recording
 function prevRecording() {
-    if (playbackQueue.length === 0) return;
+    if (playbackQueue.length === 0) {
+        startNewVoicemail();
+        return;
+    }
     
     if (queuePosition > 0) {
         queuePosition--;
         const prevIndex = playbackQueue[queuePosition];
         loadAndPlayRecording(prevIndex);
     } else {
-        // At beginning, start a new random one
         startNewVoicemail();
     }
 }
@@ -175,7 +155,7 @@ function togglePlayPause() {
 }
 
 function updatePlayPauseIcon() {
-    playPauseBtn.textContent = isPlaying ? '⏸️' : '▶️';
+    playPauseBtn.textContent = isPlaying ? '⏸' : '▶';
 }
 
 // Handle clicking on progress bar
@@ -190,19 +170,59 @@ function handleProgressClick(e) {
     audioPlayer.currentTime = percentage * audioPlayer.duration;
 }
 
-// Update Photo
-function updatePhoto() {
-    const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
-    mainPhoto.src = randomPhoto.src;
-    photoCaption.textContent = randomPhoto.caption;
+// Keypad functionality - play specific voicemail by number
+function playVoicemailByNumber(number) {
+    if (number < 1 || number > voicemails.length) {
+        messageText.textContent = `Voicemail ${number} not found.`;
+        return;
+    }
+    
+    const index = number - 1;
+    
+    if (!playedIndices.includes(index)) {
+        playedIndices.push(index);
+    }
+
+    queuePosition++;
+    playbackQueue = playbackQueue.slice(0, queuePosition);
+    playbackQueue.push(index);
+
+    loadAndPlayRecording(index);
 }
 
 // Event Listeners
-newVoicemailBtn.addEventListener('click', startNewVoicemail);
 playPauseBtn.addEventListener('click', togglePlayPause);
 prevRecordingBtn.addEventListener('click', prevRecording);
 nextRecordingBtn.addEventListener('click', nextRecording);
 progressContainer.addEventListener('click', handleProgressClick);
+
+// Keypad event listeners
+keys.forEach(key => {
+    key.addEventListener('click', () => {
+        const keyNum = key.dataset.key;
+        
+        // Flash effect
+        key.style.background = '#fff';
+        setTimeout(() => {
+            key.style.background = '';
+        }, 100);
+        
+        // Handle special keys
+        if (keyNum === '*') {
+            // * = Play random new voicemail
+            startNewVoicemail();
+        } else if (keyNum === '#') {
+            // # = Repeat current voicemail
+            if (audioPlayer.src) {
+                audioPlayer.currentTime = 0;
+                audioPlayer.play();
+            }
+        } else {
+            // Number = Play specific voicemail
+            playVoicemailByNumber(parseInt(keyNum));
+        }
+    });
+});
 
 // Audio Events
 audioPlayer.addEventListener('timeupdate', () => {
@@ -234,5 +254,16 @@ document.addEventListener('keydown', (e) => {
         prevRecording();
     } else if (e.code === 'ArrowRight') {
         nextRecording();
+    } else if (e.key >= '1' && e.key <= '9') {
+        playVoicemailByNumber(parseInt(e.key));
+    } else if (e.key === '0') {
+        playVoicemailByNumber(10);
+    } else if (e.key === '*') {
+        startNewVoicemail();
+    } else if (e.key === '#') {
+        if (audioPlayer.src) {
+            audioPlayer.currentTime = 0;
+            audioPlayer.play();
+        }
     }
 });

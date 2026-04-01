@@ -7,29 +7,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="phone-base">
         <header class="retro-header">
-            <h1>💌 Grandma's Voicemails 💌</h1>
-            <p class="subtitle">A collection of love, preserved</p>
+            <h1>Grannyline</h1>
+            <p class="subtitle">A collection of voicemails from our grannums</p>
         </header>
 
-        <div class="voicemail-display">
+        <!-- Handset Display Area -->
+        <div class="handset-display">
             <div class="screen-border">
                 <div class="screen-content">
                     <div class="status-bar">
-                        <span class="signal">📶</span>
                         <span class="time" id="currentTime"></span>
-                        <span class="battery">🔋</span>
                     </div>
                     
                     <div class="message-area">
                         <div class="message-icon">📞</div>
                         <div class="message-text" id="messageText">
-                            Press the button below to hear a message...
+                            Press a button below to hear a message...
                         </div>
                     </div>
 
-                    <!-- Clickable Progress Bar -->
                     <div class="progress-container" id="progressContainer">
                         <div class="progress-bar" id="progressBar"></div>
                     </div>
@@ -39,34 +37,33 @@
             </div>
         </div>
 
-        <!-- UPDATED: Navigation Controls -->
-        <div class="playback-controls">
-            <button id="prevRecordingBtn" class="control-btn" title="Previous Recording">⏮️</button>
-            <button id="playPauseBtn" class="control-btn main-control" title="Play/Pause">▶️</button>
-            <button id="nextRecordingBtn" class="control-btn" title="Next Recording">⏭️</button>
+        <!-- Playback Controls (Integrated into handset) -->
+        <div class="handset-controls">
+            <button id="prevRecordingBtn" class="control-btn" title="Previous Recording">⏮</button>
+            <button id="playPauseBtn" class="control-btn main-control" title="Play/Pause">▶</button>
+            <button id="nextRecordingBtn" class="control-btn" title="Next Recording">⏭</button>
         </div>
 
-        <div class="controls">
-            <button id="newVoicemailBtn" class="retro-button">
-                🎧 Play New Voicemail
-            </button>
-            <div class="counter">
-                <span id="playedCount">0</span> / <span id="totalCount">30</span> messages heard
-            </div>
-        </div>
-
-        <div class="photo-gallery">
-            <div class="gallery-frame">
-                <img id="mainPhoto" src="" alt="Memory" class="photo">
-                <div class="photo-caption" id="photoCaption">
-                    Memories live on
-                </div>
+        <!-- Numeric Keypad -->
+        <div class="keypad">
+            <div class="keypad-grid">
+                <button class="key" data-key="1">1</button>
+                <button class="key" data-key="2">2</button>
+                <button class="key" data-key="3">3</button>
+                <button class="key" data-key="4">4</button>
+                <button class="key" data-key="5">5</button>
+                <button class="key" data-key="6">6</button>
+                <button class="key" data-key="7">7</button>
+                <button class="key" data-key="8">8</button>
+                <button class="key" data-key="9">9</button>
+                <button class="key" data-key="*">*</button>
+                <button class="key" data-key="0">0</button>
+                <button class="key" data-key="#">#</button>
             </div>
         </div>
 
         <footer class="retro-footer">
-            <p>In loving memory • Forever in our hearts</p>
-            <p class="signature">Made with ❤️</p>
+            <p>Thinking of you grannums ♥</p>
         </footer>
     </div>
 
